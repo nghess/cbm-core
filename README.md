@@ -67,3 +67,4 @@ si = pm.si(spike_ms[0], search)
 Plotting, GUIs, decoders, sniff detection, MUA spike detection, and the Bonsai/ephys alignment (that stays
 in clickbait-preprocess). Settings particular to one analysis (bin size, minimum spikes, number of shuffles,
 colormaps) stay in that project's config.
+# cbm-core
