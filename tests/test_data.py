@@ -16,7 +16,7 @@ def test_events_and_epochs():
     assert ev['timestamp_ms'].is_monotonic_increasing
     ep = epochs.label_epochs(ev)
     frac = np.bincount(ep, minlength=4) / len(ep)
-    assert frac[epochs.APPETITIVE] > 0.5 and 0.01 < frac[epochs.CONSUMMATORY] < 0.15
+    assert frac[epochs.SEARCH] > 0.5 and 0.01 < frac[epochs.RETRIEVAL] < 0.15
 
 
 def test_units_and_place_maps():

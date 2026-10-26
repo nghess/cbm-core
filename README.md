@@ -19,7 +19,7 @@ Editable, into every environment that uses it:
 |---|---|
 | `cbmcore.paths` | `DATA_ROOT` (E:/, or the `CBM_DATA_ROOT` environment variable), experiments and regions; `Session(experiment, mouse, session)` with the path of every file; `list_sessions()` |
 | `cbmcore.events` | `load_events()`: events.csv sorted by the ephys or Bonsai clock, bool columns cleaned; column names; `frame_durations_s()` |
-| `cbmcore.epochs` | `label_epochs()`: appetitive / consummatory / feeding (and unsplit) for every frame |
+| `cbmcore.epochs` | `label_epochs()`: search / retrieval / consumption (and unsplit) for every frame |
 | `cbmcore.arena` | camera frame, the 5 x 11 target grid (`cell_bounds`, `cell_of`), long-axis zones, `PLACE_BOX`, `bin_edges`, `bin_index` |
 | `cbmcore.place` | `PlaceMaps`: occupancy, rate maps, Skaggs SI and circular-shuffle nulls on fixed bins; `ssi_stats`; `upsample_rate_map` for display |
 | `cbmcore.units` | `load_units()`: good/mua units of one region with spike times in ms |
@@ -36,17 +36,18 @@ ev['epoch'] = label_epochs(ev)               # label before dropping any frames
 units, spike_ms = load_units(sess, 'hc')     # good + mua, spike times in ms
 
 pm = PlaceMaps(ev['timestamp_ms'], *(ev[c] for c in events.xy('nose')))
-appetitive = (ev['epoch'] == epochs.APPETITIVE).to_numpy()
-rate = pm.grid(pm.rate_map(spike_ms[0], appetitive))   # (n_x, n_y) Hz; .T to plot
-si = pm.si(spike_ms[0], appetitive)
+search = (ev['epoch'] == epochs.SEARCH).to_numpy()
+rate = pm.grid(pm.rate_map(spike_ms[0], search))   # (n_x, n_y) Hz; .T to plot
+si = pm.si(spike_ms[0], search)
 ```
 
 ## Definitions and why
 
-- **Epochs** (`epochs.py`). Consummatory starts when `target_cell` goes blank, not on `reward_state`'s
+- **Epochs** (`epochs.py`): search, retrieval, consumption. (Named appetitive, consummatory and feeding
+  until Oct 2026; only the names changed.) Retrieval starts when `target_cell` goes blank, not on `reward_state`'s
   rising edge: `reward_state` stays on until the next recorded poke, so an edge-triggered machine let
-  consummatory run into the next search after every unrecorded poke (7.8% of found trials). A find with no
-  recorded poke before the ITI is `UNSPLIT` and belongs to no epoch. Feeding keeps only frames within
+  retrieval run into the next search after every unrecorded poke (7.8% of found trials). A find with no
+  recorded poke before the ITI is `UNSPLIT` and belongs to no epoch. Consumption keeps only frames within
   0.5 s of a poke, so it is stricter than events.csv's own `drinking` column, which is left as it is.
   Labels use `bonsai_ts`, so they are the same with or without ephys sync.
 - **Place-map box** (`arena.PLACE_BOX`): x 0-888, y 25-1933 px for the SLEAP nose. Outside it fall a median

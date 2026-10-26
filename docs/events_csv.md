@@ -48,7 +48,7 @@ Trial 0 is the warm-up period before the first real trial.
 | `reward_state` | True from the moment the target is found until the next recorded poke (median 1-1.6 s). If a trial has any True rows, it was rewarded. When a poke goes unrecorded (about 8% of found trials) it stays True into the next trial, so don't mark the end of the search with it: use `target_cell` going blank (see `cbmcore.epochs`). |
 | `water_left` / `water_right` | True while the left/right water valve is open. These mostly overlap with `reward_state`. Left is used far more than right. |
 | `poke_left` / `poke_right` | True while the mouse's snout is in the left/right port. This can fire many times per trial, including pokes that don't earn a reward. |
-| `drinking` | True while the mouse is drinking after a reward. Looser than the `feeding` epoch of `cbmcore.epochs`, which keeps only frames within 0.5 s of a poke. |
+| `drinking` | True while the mouse is drinking after a reward. Looser than the `consumption` epoch of `cbmcore.epochs`, which keeps only frames within 0.5 s of a poke. |
 | `click` | Brief audio click cue, True for only a few frames per trial. *(Confirm what triggers it.)* |
 
 ## Bonsai online tracking
