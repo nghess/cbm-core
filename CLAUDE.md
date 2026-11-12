@@ -1,6 +1,6 @@
 # cbm-core
 
-Shared library imported by every cbm project (task-behavior, sniff-raster, position-decoding, the viewers).
+Shared library imported by every cbm project (task-behavior, cbm-sniffing (formerly sniff-raster), position-decoding, the viewers).
 @README.md
 
 ## Rules for changing it
