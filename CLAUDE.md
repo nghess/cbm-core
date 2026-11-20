@@ -1,6 +1,8 @@
 # cbm-core
 
-Shared library imported by every cbm project (task-behavior, cbm-sniffing (formerly sniff-raster), position-decoding, the viewers).
+Shared library for the cbm analysis projects. Imported by cbm-classify, cbm-decode, cbm-dimreduction, cbm-emd,
+cbm-hmm, cbm-info, cbm-qc, cbm-remapping, cbm-sniff and cbm-sr (Nov 2026). The viewers, cbm-task-behavior and
+cbm-event-locking don't import it; they keep their own copies of the definitions.
 @README.md
 
 ## Rules for changing it
